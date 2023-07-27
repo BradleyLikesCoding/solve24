@@ -1,0 +1,165 @@
+#include <iostream>
+using namespace std;
+
+int trynums[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+String answer = "";
+bool solved = false;
+
+void solve(nums) {
+  while (nums[0] != 4) {
+    if (check()) {
+      return;
+    }
+    increment();
+  }
+}
+
+int copy_list(int list, int length) {
+  int returnValue[length] = {};
+  for(int i = 0; i < length; i++) {
+    returnValue[i] = list[i];
+  }
+  return(list);
+}
+
+bool check() {
+  String text = "";
+  if (nums[0] == nums[1]) {
+    return(false);
+  }
+  if (nums[3] == nums[4]) {
+    return(false);
+  }
+  if (nums[6] == nums[7]) {
+    return(false);
+  }
+  int tempnums = copy_list(numbers, 9);
+  //where I left off
+  text += "<br>" + tempnums[nums[0]] + " " + symbol(nums[2]) + " " + tempnums[nums[1]] + " = ";
+  tempnums = operate(tempnums, [nums[0], nums[1], nums[2]]);
+  text += tempnums[2] + "<br>";
+  text += tempnums[nums[3]] + " " + symbol(nums[5]) + " " + tempnums[nums[4]] + " = ";
+  tempnums = operate(tempnums, [nums[3], nums[4], nums[5]]);
+  text += tempnums[1] + "<br>";
+  text += tempnums[nums[6]] + " " + symbol(nums[8]) + " " + tempnums[nums[7]] + " = ";
+  tempnums = operate(tempnums, [nums[6], nums[7], nums[8]]);
+  text += tempnums[0] + "<br><br>";
+  if (tempnums[0] != 24) {
+    return (false);
+  }
+  return (true);
+}
+
+function increment() {
+  nums[8]++;
+  if (nums[8] == 4) {
+    nums[8] = 0;
+    nums[7]++;
+    if (nums[7] == 2) {
+      nums[7] = 0;
+      nums[6]++;
+      if (nums[6] == 2) {
+        nums[6] = 0;
+        nums[5]++;
+        if (nums[5] == 4) {
+          nums[5] = 0;
+          nums[4]++;
+          if (nums[4] == 3) {
+            nums[4] = 0;
+            nums[3]++;
+            if (nums[3] == 3) {
+              nums[3] = 0;
+              nums[2]++;
+              if (nums[2] == 4) {
+                nums[2] = 0;
+                nums[1]++;
+                if (nums[1] == 4) {
+                  nums[1] = 0;
+                  nums[0]++;
+                  if (nums[0] == 4) {
+                    return (false);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return (true);
+}
+
+function operate(numb, types) {
+  var numbers = [];
+  for (var i = 0; i < numb.length; i++) {
+    numbers.push(Number(numb[i]));
+  }
+  var type = [];
+  for (var i = 0; i < types.length; i++) {
+    type.push(Number(types[i]));
+  }
+  var returnVal = numbers;
+  switch (type[2]) {
+    case 0:
+      returnVal.push(numbers[type[0]] + numbers[type[1]]);
+      break;
+    case 1:
+      returnVal.push(numbers[type[0]] - numbers[type[1]]);
+      break;
+    case 2:
+      returnVal.push(numbers[type[0]] * numbers[type[1]]);
+      break;
+    case 3:
+      returnVal.push(numbers[type[0]] / numbers[type[1]]);
+      break
+  }
+  if (type[0] > type[1]) {
+    returnVal.splice(type[0], 1);
+    returnVal.splice(type[1], 1);
+  } else {
+    returnVal.splice(type[1], 1);
+    returnVal.splice(type[0], 1);
+  }
+  return (returnVal);
+}
+
+function symbol(int) {
+  switch (int) {
+    case 0:
+      return ("+");
+    case 1:
+      return ("-");
+    case 2:
+      return ("×");
+    case 3:
+      return ("÷");
+  }
+}
+
+function checkrepeat(answer) {
+  for (var i = 0; i < answers2.length; i++) {
+    var temp1 = [...answers2[i]];
+    var temp2 = [...answer];
+    for (var i2 = 0; i2 < 9; i2 += 3) {
+      if (temp1[i2] < temp1[i2 + 1]) {
+        var temp3 = temp1[i2];
+        temp1[i2] = temp1[i2 + 1];
+        temp1[i2 + 1] = temp3;
+      }
+      if (temp2[i2] < temp2[i2 + 1]) {
+        var temp3 = temp2[i2];
+        temp2[i2] = temp2[i2 + 1];
+        temp2[i2 + 1] = temp3;
+      }
+    }
+  	if(temp1 === temp2) {
+    	return(false);
+    }
+  }
+  return (true);
+}
+
+int main() {
+  return(0);
+}
